@@ -13,14 +13,13 @@ body {
 #root {
   height: 100%;
 }
-
 /* Layout */
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header'
-    'main'
-    'footer';
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
@@ -47,7 +46,6 @@ h2 {
   font-size: 1.6rem;
   padding: 1rem 0;
 }
-
 a {
   text-decoration: none;
 }
@@ -129,7 +127,6 @@ a.brand {
 .min-30 {
   min-width: 30rem;
 }
-
 /* Image */
 img {
   border-radius: 0.5rem;
@@ -145,7 +142,6 @@ img.medium {
 img.large {
   width: 100%;
 }
-
 /* Card */
 .card {
   border: 0.1rem #c0c0c0 solid;
@@ -171,6 +167,9 @@ img.large {
   color: #404040;
 }
 /* Alert */
+.loading {
+  display: block !important;
+}
 .success {
   color: #20a020;
 }
@@ -202,7 +201,6 @@ img.large {
 }
 .form label {
   margin: 1rem 0;
-  display: block;
 }
 /* Dropdown */
 .dropdown {
@@ -223,4 +221,16 @@ img.large {
 }
 .dropdown:hover .dropdown-content {
   display: block;
+}
+/* Checkout Steps */
+.checkout-steps > div {
+  border-top: 0.3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1;
+  padding: 1rem;
+  font-weight: bold;
+}
+.checkout-steps > div.active {
+  border-top-color: #f08000;
+  color: #f08000;
 }
