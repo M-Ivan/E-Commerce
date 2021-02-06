@@ -1,14 +1,14 @@
-import express from "express";
-import expressAsyncHandler from "express-async-handler";
-import bcrypt from "bcryptjs";
-import data from "../data.js";
-import User from "../models/userModel.js";
-import { generateToken } from "../utils.js";
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import bcrypt from 'bcryptjs';
+import data from '../data.js';
+import User from '../models/userModel.js';
+import { generateToken } from '../utils.js';
 
 const userRouter = express.Router();
 
 userRouter.get(
-  "/seed",
+  '/seed',
   expressAsyncHandler(async (req, res) => {
     // await User.remove({});
     const createdUsers = await User.insertMany(data.users);
@@ -17,7 +17,7 @@ userRouter.get(
 );
 
 userRouter.post(
-  "/signin",
+  '/signin',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -32,12 +32,12 @@ userRouter.post(
         return;
       }
     }
-    res.status(401).send({ message: "Invalid email or password" });
+    res.status(401).send({ message: 'Invalid email or password' });
   })
 );
 
 userRouter.post(
-  "/register",
+  '/register',
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       name: req.body.name,
