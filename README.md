@@ -1,6 +1,6 @@
 # Amazon Libre ECommerce
 
-![amazona](/template/images/amazona.jpg)
+![amazona](/template/images/amazonLibre.png)
 
 ## Para correr en local
 
