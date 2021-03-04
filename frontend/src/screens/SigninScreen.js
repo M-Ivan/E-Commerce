@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signin } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { signin } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 export default function SigninScreen(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
+    ? props.location.search.split("=")[1]
+    : "/";
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
@@ -35,7 +35,7 @@ export default function SigninScreen(props) {
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
-          <label htmlFor="email">Email address</label>
+          <label htmlFor="email">E-mail</label>
           <input
             type="email"
             id="email"
@@ -45,7 +45,7 @@ export default function SigninScreen(props) {
           ></input>
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Contraseña</label>
           <input
             type="password"
             id="password"
@@ -57,16 +57,14 @@ export default function SigninScreen(props) {
         <div>
           <label />
           <button className="primary" type="submit">
-            Sign In
+            Iniciar sesión
           </button>
         </div>
         <div>
           <label />
           <div>
-            New customer?{' '}
-            <Link to={`/register?redirect=${redirect}`}>
-              Create your account
-            </Link>
+            Primera vez en el sitio?{" "}
+            <Link to={`/register?redirect=${redirect}`}>Registrate</Link>
           </div>
         </div>
       </form>
