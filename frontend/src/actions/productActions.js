@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios from "axios";
 import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
@@ -21,13 +21,13 @@ import {
   PRODUCT_REVIEW_CREATE_REQUEST,
   PRODUCT_REVIEW_CREATE_SUCCESS,
   PRODUCT_REVIEW_CREATE_FAIL,
-} from '../constants/productConstants';
+} from "../constants/productConstants";
 
 export const listProducts = ({
-  seller = '',
-  name = '',
-  category = '',
-  order = '',
+  seller = "",
+  name = "",
+  category = "",
+  order = "",
   min = 0,
   max = 0,
   rating = 0,
@@ -79,12 +79,13 @@ export const createProduct = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      '/api/products',
+      "/api/products",
       {},
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       }
     );
+    console.log(data);
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data.product,

@@ -377,7 +377,7 @@ img.large {
   box-shadow: 1px 0px 3px grey;
 }
 .search input {
-  width: 800px;
+  width: 500px;
   border-radius: 0rem 0 0 0rem;
   border-right: none;
   margin-left: 0.5rem;
