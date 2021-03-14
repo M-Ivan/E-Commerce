@@ -113,11 +113,12 @@ button.search {
   background-color: #ffffff;
 }
 button.delete-cart {
-  background-color: #bb1919;
-  color: #ffffff;
-  border-radius: 50%;
-  padding: 1rem 1.5rem;
-  font-size: 2rem;
+  border: 0;
+  background-color: #ebebeb;
+  color: #646464;
+  padding: 0rem;
+  margin: 2rem;
+  font-size: 3rem;
 }
 button.delete {
   background-color: #bb1919;
@@ -125,8 +126,7 @@ button.delete {
   font-weight: bold;
 }
 button.delete-cart:hover {
-  border: 1px solid #000000;
-  font-weight: bold;
+  color: #960000;
 }
 button.info {
   background-color: #fff9f1;
@@ -164,6 +164,11 @@ a.brand {
 .row.center {
   justify-content: center;
 }
+.row.center-message {
+  justify-content: center;
+  padding: 10rem;
+}
+
 .row.top {
   align-items: flex-start;
 }
@@ -275,7 +280,10 @@ img.large {
 /* Alert */
 .loading {
   display: block !important;
+  justify-content: center;
+  align-items: center;
 }
+
 .success {
   color: #20a020;
 }
@@ -377,7 +385,7 @@ img.large {
   box-shadow: 1px 0px 3px grey;
 }
 .search input {
-  width: 500px;
+  width: 400px;
   border-radius: 0rem 0 0 0rem;
   border-right: none;
   margin-left: 0.5rem;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { listProducts } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 import Product from "../components/Product";
 import Rating from "../components/Rating";
@@ -53,7 +53,9 @@ export default function SearchScreen(props) {
     <div>
       <div className="row">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <div className="row center">
+            <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+          </div>
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -79,7 +81,13 @@ export default function SearchScreen(props) {
           <h3>Categorías</h3>
           <div>
             {loadingCategories ? (
-              <LoadingBox></LoadingBox>
+              <div className="row center">
+                <ReactLoading
+                  className="loading"
+                  color="#2d91f0"
+                  type="cylon"
+                />{" "}
+              </div>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
@@ -140,7 +148,9 @@ export default function SearchScreen(props) {
         </div>
         <div className="col-3">
           {loading ? (
-            <LoadingBox></LoadingBox>
+            <div className="row center">
+              <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+            </div>
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (

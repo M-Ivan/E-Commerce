@@ -1,15 +1,15 @@
-import Axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+import Axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { deliverOrder, detailsOrder, payOrder } from "../actions/orderActions";
+import MessageBox from "../components/MessageBox";
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../constants/orderConstants';
+} from "../constants/orderConstants";
+import ReactLoading from "react-loading";
 
 export default function OrderScreen(props) {
   const orderId = props.match.params.id;
@@ -34,9 +34,9 @@ export default function OrderScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data } = await Axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
+      const { data } = await Axios.get("/api/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
       script.onload = () => {
@@ -72,52 +72,55 @@ export default function OrderScreen(props) {
   };
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <div className="row center">
+      <ReactLoading className="loading" color="#2d91f0" type="spin" />{" "}
+    </div>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
-      <h1>Order {order._id}</h1>
+      <h1>Orden #{order._id}</h1>
       <div className="row top">
         <div className="col-2">
           <ul>
             <li>
               <div className="card card-body">
-                <h2>Shippring</h2>
+                <h2>Envío</h2>
                 <p>
-                  <strong>Name:</strong> {order.shippingAddress.fullName} <br />
-                  <strong>Address: </strong> {order.shippingAddress.address},
-                  {order.shippingAddress.city},{' '}
+                  <strong>Nombre:</strong> {order.shippingAddress.fullName}{" "}
+                  <br />
+                  <strong>Dirección: </strong> {order.shippingAddress.address},
+                  {order.shippingAddress.city},{" "}
                   {order.shippingAddress.postalCode},
                   {order.shippingAddress.country}
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
-                    Delivered at {order.deliveredAt}
+                    Entregado: {order.deliveredAt}
                   </MessageBox>
                 ) : (
-                  <MessageBox variant="danger">Not Delivered</MessageBox>
+                  <MessageBox variant="danger">No entregado</MessageBox>
                 )}
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Payment</h2>
+                <h2>Pago</h2>
                 <p>
-                  <strong>Method:</strong> {order.paymentMethod}
+                  <strong>Método:</strong> {order.paymentMethod}
                 </p>
                 {order.isPaid ? (
                   <MessageBox variant="success">
-                    Paid at {order.paidAt}
+                    Pagado: {order.paidAt}
                   </MessageBox>
                 ) : (
-                  <MessageBox variant="danger">Not Paid</MessageBox>
+                  <MessageBox variant="danger">Impago</MessageBox>
                 )}
               </div>
             </li>
             <li>
               <div className="card card-body">
-                <h2>Order Items</h2>
+                <h2>Productos de la Orden</h2>
                 <ul>
                   {order.orderItems.map((item) => (
                     <li key={item.product}>
@@ -150,7 +153,7 @@ export default function OrderScreen(props) {
           <div className="card card-body">
             <ul>
               <li>
-                <h2>Order Summary</h2>
+                <h2>Sumario de Orden</h2>
               </li>
               <li>
                 <div className="row">
@@ -160,20 +163,20 @@ export default function OrderScreen(props) {
               </li>
               <li>
                 <div className="row">
-                  <div>Shipping</div>
+                  <div>Envío</div>
                   <div>${order.shippingPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
-                  <div>Tax</div>
+                  <div>Impuestos</div>
                   <div>${order.taxPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>
-                    <strong> Order Total</strong>
+                    <strong> Total de Orden</strong>
                   </div>
                   <div>
                     <strong>${order.totalPrice.toFixed(2)}</strong>
@@ -183,13 +186,23 @@ export default function OrderScreen(props) {
               {!order.isPaid && (
                 <li>
                   {!sdkReady ? (
-                    <LoadingBox></LoadingBox>
+                    <ReactLoading
+                      className="loading"
+                      color="#2d91f0"
+                      type="bars"
+                    />
                   ) : (
                     <>
                       {errorPay && (
                         <MessageBox variant="danger">{errorPay}</MessageBox>
                       )}
-                      {loadingPay && <LoadingBox></LoadingBox>}
+                      {loadingPay && (
+                        <ReactLoading
+                          className="loading"
+                          color="#2d91f0"
+                          type="bars"
+                        />
+                      )}
 
                       <PayPalButton
                         amount={order.totalPrice}
@@ -201,7 +214,13 @@ export default function OrderScreen(props) {
               )}
               {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                 <li>
-                  {loadingDeliver && <LoadingBox></LoadingBox>}
+                  {loadingDeliver && (
+                    <ReactLoading
+                      className="loading"
+                      color="#2d91f0"
+                      type="bars"
+                    />
+                  )}
                   {errorDeliver && (
                     <MessageBox variant="danger">{errorDeliver}</MessageBox>
                   )}
@@ -210,7 +229,7 @@ export default function OrderScreen(props) {
                     className="primary block"
                     onClick={deliverHandler}
                   >
-                    Deliver Order
+                    Confirmar Orden
                   </button>
                 </li>
               )}

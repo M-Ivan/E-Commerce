@@ -9,6 +9,7 @@ export default function CartScreen(props) {
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
     : 1;
+  // Hooks
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function CartScreen(props) {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
-    // delete action
+    //Borrar dispatch
     dispatch(removeFromCart(id));
   };
 
@@ -33,7 +34,7 @@ export default function CartScreen(props) {
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         {cartItems.length === 0 ? (
           <MessageBox>
-            Cart is empty. <Link to="/">Ir de compras</Link>
+            El carrito esta vacio. <Link to="/">Ir de compras</Link>
           </MessageBox>
         ) : (
           <ul>
@@ -73,7 +74,7 @@ export default function CartScreen(props) {
                       className="delete-cart"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      X
+                      <i className="fa fa-trash lg"></i>
                     </button>
                   </div>
                 </div>

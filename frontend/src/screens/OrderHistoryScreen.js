@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listOrderMine } from "../actions/orderActions";
-import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
 
 export default function OrderHistoryScreen(props) {
+  //Hooks
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
@@ -15,9 +17,17 @@ export default function OrderHistoryScreen(props) {
     <div>
       <h1>Compras</h1>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="spin" />{" "}
+        </div>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
+      ) : orders.length === 0 ? (
+        <div>
+          <MessageBox variant="info">
+            Aun no compráste nada.<Link to="/"> Ir de compras.</Link>{" "}
+          </MessageBox>
+        </div>
       ) : (
         <table className="table">
           <thead>

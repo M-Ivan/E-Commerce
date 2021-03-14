@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { detailsUser, updateUserProfile } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 export default function ProfileScreen() {
+  // Hooks
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +42,7 @@ export default function ProfileScreen() {
   }, [dispatch, userInfo._id, user]);
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch update profile
+    // Hace dispatch al nuevo perfil
     if (password === confirmPassword) {
       dispatch(
         updateUserProfile({
@@ -63,7 +64,7 @@ export default function ProfileScreen() {
           <h1>Mi perfil</h1>
         </div>
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -79,7 +80,9 @@ export default function ProfileScreen() {
                 Las contraseñas coinciden
               </MessageBox>
             ) : null}
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpdate && (
+              <ReactLoading className="loading" color="#2d91f0" type="cylon" />
+            )}
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}

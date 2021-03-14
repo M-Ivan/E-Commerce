@@ -31,6 +31,8 @@ app.get("/api/config/paypal", (req, res) => {
 });
 app.get("/api/config/google", (req, res) => {
   res.send(process.env.GOOGLE_API_KEY || "");
+  // Aca se pondria una API Key de GOOGLE, lo cual habilitaria la funcion de maps.
+  // Pero por cuestiones economicas decidí deshabilitar la función.
 });
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

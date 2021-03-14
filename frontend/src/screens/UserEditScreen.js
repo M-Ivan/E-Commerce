@@ -3,12 +3,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { detailsUser, updateUser } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 
 export default function UserEditScreen(props) {
   const userId = props.match.params.id;
+  // Hooks
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isSeller, setIsSeller] = useState(false);
@@ -42,7 +43,7 @@ export default function UserEditScreen(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch update user
+    // Hace dispatch del nuevo usuario
     dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
   };
   return (
@@ -50,13 +51,19 @@ export default function UserEditScreen(props) {
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Editar usuario: {name}</h1>
-          {loadingUpdate && <LoadingBox></LoadingBox>}
+          {loadingUpdate && (
+            <div className="row center">
+              <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+            </div>
+          )}
           {errorUpdate && (
             <MessageBox variant="danger">{errorUpdate}</MessageBox>
           )}
         </div>
         {loading ? (
-          <LoadingBox />
+          <div className="row center">
+            <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+          </div>
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (

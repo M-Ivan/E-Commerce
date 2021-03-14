@@ -1,20 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   LoadScript,
   GoogleMap,
   StandaloneSearchBox,
   Marker,
-} from '@react-google-maps/api';
-import LoadingBox from '../components/LoadingBox';
-import Axios from 'axios';
-import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants';
-import { useDispatch } from 'react-redux';
+} from "@react-google-maps/api";
+import Axios from "axios";
+import { USER_ADDRESS_MAP_CONFIRM } from "../constants/userConstants";
+import { useDispatch } from "react-redux";
+import ReactLoading from "react-loading";
+import MessageBox from "../components/MessageBox";
 
-const libs = ['places'];
+const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
 
 export default function MapScreen(props) {
-  const [googleApiKey, setGoogleApiKey] = useState('');
+  //Hooks
+  const [googleApiKey, setGoogleApiKey] = useState("");
   const [center, setCenter] = useState(defaultLocation);
   const [location, setLocation] = useState(center);
 
@@ -24,7 +26,7 @@ export default function MapScreen(props) {
 
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await Axios('/api/config/google');
+      const { data } = await Axios("/api/config/google");
       setGoogleApiKey(data);
       getUserCurrentLocation();
     };
@@ -56,7 +58,7 @@ export default function MapScreen(props) {
   const onConfirm = () => {
     const places = placeRef.current.getPlaces();
     if (places && places.length === 1) {
-      // dispatch select action
+      // Hace dispatch a la ubicación
       dispatch({
         type: USER_ADDRESS_MAP_CONFIRM,
         payload: {
@@ -68,16 +70,16 @@ export default function MapScreen(props) {
           googleAddressId: places[0].id,
         },
       });
-      alert('location selected successfully.');
-      props.history.push('/shipping');
+      alert("location selected successfully.");
+      props.history.push("/shipping");
     } else {
-      alert('Please enter your address');
+      alert("Please enter your address");
     }
   };
 
   const getUserCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation os not supported by this browser');
+      alert("Geolocation os not supported by this browser");
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
         setCenter({
@@ -97,7 +99,7 @@ export default function MapScreen(props) {
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="smaple-map"
-          mapContainerStyle={{ height: '100%', width: '100%' }}
+          mapContainerStyle={{ height: "100%", width: "100%" }}
           center={center}
           zoom={15}
           onLoad={onLoad}
@@ -110,7 +112,7 @@ export default function MapScreen(props) {
             <div className="map-input-box">
               <input type="text" placeholder="Enter your address"></input>
               <button type="button" className="primary" onClick={onConfirm}>
-                Confirm
+                Confirmar
               </button>
             </div>
           </StandaloneSearchBox>
@@ -119,6 +121,20 @@ export default function MapScreen(props) {
       </LoadScript>
     </div>
   ) : (
-    <LoadingBox></LoadingBox>
+    <div className="container">
+      <div className="row center-message">
+        <h1>
+          <MessageBox variant="danger">
+            Es necesaria una API Key de google, la cual es paga y factura por
+            tráfico de red. La función de Maps se encuentra deshabilitada.
+          </MessageBox>{" "}
+        </h1>
+      </div>
+      <div className="row center">
+        <div className="loading">
+          <ReactLoading color="#a02020" width={150} type="spin" />
+        </div>
+      </div>
+    </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   deleteProduct,
   listProducts,
 } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 import {
   PRODUCT_CREATE_RESET,
@@ -14,6 +14,7 @@ import {
 
 export default function ProductListScreen(props) {
   const sellerMode = props.match.path.indexOf("/seller") >= 0;
+  // Hooks
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
@@ -64,19 +65,29 @@ export default function ProductListScreen(props) {
   return (
     <div>
       <div className="row">
-        <h1>Products</h1>
+        <h1>Productos</h1>
         <button type="button" className="primary" onClick={createHandler}>
-          Create Product
+          Crear Producto
         </button>
       </div>
 
-      {loadingDelete && <LoadingBox></LoadingBox>}
+      {loadingDelete && (
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
+      )}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
 
-      {loadingCreate && <LoadingBox></LoadingBox>}
+      {loadingCreate && (
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
+      )}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -84,11 +95,11 @@ export default function ProductListScreen(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
-              <th>PRICE</th>
-              <th>CATEGORY</th>
-              <th>BRAND</th>
-              <th>ACTIONS</th>
+              <th>NOMBRE</th>
+              <th>PRECIO</th>
+              <th>CATEGORÍA</th>
+              <th>MARCA</th>
+              <th>ACCIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -107,14 +118,14 @@ export default function ProductListScreen(props) {
                       props.history.push(`/product/${product._id}/edit`)
                     }
                   >
-                    Edit
+                    Editar
                   </button>
                   <button
                     type="button"
                     className="small"
                     onClick={() => deleteHandler(product)}
                   >
-                    Delete
+                    Borrar
                   </button>
                 </td>
               </tr>

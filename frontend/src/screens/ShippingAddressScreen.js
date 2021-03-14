@@ -4,8 +4,8 @@ import { saveShippingAddress } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 export default function ShippingAddressScreen(props) {
+  //Hooks
   const userSignin = useSelector((state) => state.userSignin);
-
   const { userInfo } = userSignin;
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
@@ -34,7 +34,7 @@ export default function ShippingAddressScreen(props) {
     let moveOn = true;
     if (!newLat || !newLng) {
       moveOn = window.confirm(
-        "You did not set your location on map. Continue?"
+        "No elegiste tu ubicación en el mapa, continuar?"
       );
     }
     if (moveOn) {
@@ -71,7 +71,7 @@ export default function ShippingAddressScreen(props) {
       <CheckoutSteps step1 step2></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Dirección de Envio</h1>
+          <h1>Dirección de Envío</h1>
         </div>
         <div>
           <label htmlFor="fullName">Nombre Completo</label>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createReview, detailsProduct } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 import Rating from "../components/Rating";
 import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
@@ -10,6 +10,7 @@ import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
   const productId = props.match.params.id;
+  // Hooks
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -48,10 +49,14 @@ export default function ProductScreen(props) {
       alert("Por favor califica y justifica tu calificación");
     }
   };
+
+  //Render ()
   return (
     <div>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -100,13 +105,13 @@ export default function ProductScreen(props) {
                   </li>
                   <li>
                     <div className="row">
-                      <div>Precio</div>
+                      <div>Precio: </div>
                       <div className="price">${product.price}</div>
                     </div>
                   </li>
                   <li>
                     <div className="row">
-                      <div>Status</div>
+                      <div>Estado: </div>
                       <div>
                         {product.countInStock > 0 ? (
                           <span className="success">
@@ -154,7 +159,7 @@ export default function ProductScreen(props) {
             </div>
           </div>
           <div>
-            <h2 id="reviews">Opiniones de Usuarios</h2>
+            <h2 id="reviews">Opiniones de los Usuarios</h2>
             {product.reviews.length === 0 && (
               <MessageBox>Aún no hay reseñas, se el primero!</MessageBox>
             )}
@@ -203,7 +208,15 @@ export default function ProductScreen(props) {
                       </button>
                     </div>
                     <div>
-                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                      {loadingReviewCreate && (
+                        <div className="row center">
+                          <ReactLoading
+                            className="loading"
+                            color="#2d91f0"
+                            type="cylon"
+                          />{" "}
+                        </div>
+                      )}
                       {errorReviewCreate && (
                         <MessageBox variant="danger">
                           {errorReviewCreate}

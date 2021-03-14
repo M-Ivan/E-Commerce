@@ -25,11 +25,13 @@ import SellerScreen from "./screens/SellerScreen";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
 import { listProductCategories } from "./actions/productActions";
-import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import MapScreen from "./screens/MapScreen";
+import ReactLoading from "react-loading";
 
 function App() {
+  // Hooks a la store de redux, con esto se accede al state global de la app,
+  // para no tener que andar definiendo states locales eternamente.
   const cart = useSelector((state) => state.cart);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { cartItems } = cart;
@@ -100,7 +102,7 @@ function App() {
                 </ul>
               </div>
             ) : (
-              <Link to="/signin">Iniciar Sesion</Link>
+              <Link to="/signin">Iniciar Sesión</Link>
             )}
             {userInfo && userInfo.isSeller && (
               <div className="dropdown">
@@ -130,7 +132,7 @@ function App() {
                     <Link to="/productlist">Productos</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Ordenes</Link>
+                    <Link to="/orderlist">Órdenes</Link>
                   </li>
                   <li>
                     <Link to="/userlist">Usuarios</Link>
@@ -143,7 +145,7 @@ function App() {
         <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
             <li>
-              <strong>Categories</strong>
+              <strong>Categorías</strong>
               <button
                 onClick={() => setSidebarIsOpen(false)}
                 className="close-sidebar"
@@ -153,7 +155,7 @@ function App() {
               </button>
             </li>
             {loadingCategories ? (
-              <LoadingBox></LoadingBox>
+              <ReactLoading className="loading" color="#2d91f0" type="bars" />
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (

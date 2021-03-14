@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
+import ReactLoading from "react-loading";
 import MessageBox from "../components/MessageBox";
 
 export default function RegisterScreen(props) {
+  //Hooks
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +46,9 @@ export default function RegisterScreen(props) {
         ) : confirmPassword.length > 0 ? (
           <MessageBox variant="success">Las contraseñas coinciden</MessageBox>
         ) : null}
-        {loading && <LoadingBox></LoadingBox>}
+        {loading && (
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />
+        )}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="name">Nombre</label>

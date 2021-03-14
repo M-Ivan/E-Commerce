@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, listUsers } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_DETAILS_RESET } from "../constants/userConstants";
+import ReactLoading from "react-loading";
 
 export default function UserListScreen(props) {
+  // Hooks
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
@@ -30,14 +31,20 @@ export default function UserListScreen(props) {
   };
   return (
     <div>
-      <h1>Users</h1>
-      {loadingDelete && <LoadingBox></LoadingBox>}
+      <h1>Usuarios</h1>
+      {loadingDelete && (
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
+      )}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
         <MessageBox variant="success">User Deleted Successfully</MessageBox>
       )}
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <div className="row center">
+          <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+        </div>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
-import { detailsUser } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import Product from '../components/Product';
-import Rating from '../components/Rating';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../actions/productActions";
+import { detailsUser } from "../actions/userActions";
+import ReactLoading from "react-loading";
+import MessageBox from "../components/MessageBox";
+import Product from "../components/Product";
+import Rating from "../components/Rating";
 
 export default function SellerScreen(props) {
   const sellerId = props.match.params.id;
+  // Hooks
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
@@ -28,7 +29,9 @@ export default function SellerScreen(props) {
     <div className="row top">
       <div className="col-1">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <div className="row center">
+            <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+          </div>
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -62,7 +65,9 @@ export default function SellerScreen(props) {
       </div>
       <div className="col-3">
         {loadingProducts ? (
-          <LoadingBox></LoadingBox>
+          <div className="row center">
+            <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+          </div>
         ) : errorProducts ? (
           <MessageBox variant="danger">{errorProducts}</MessageBox>
         ) : (

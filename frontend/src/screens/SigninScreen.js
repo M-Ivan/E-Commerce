@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signin } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import ReactLoading from "react-loading";
 
 export default function SigninScreen(props) {
+  // Hooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,9 +31,13 @@ export default function SigninScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Sign In</h1>
+          <h1>Iniciar Sesión</h1>
         </div>
-        {loading && <LoadingBox></LoadingBox>}
+        {loading && (
+          <div className="row center">
+            <ReactLoading className="loading" color="#2d91f0" type="cylon" />{" "}
+          </div>
+        )}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="email">E-mail</label>
