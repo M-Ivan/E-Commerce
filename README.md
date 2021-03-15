@@ -4,7 +4,7 @@
 
 ## Demo online del proyecto:
 
-Heroku: [clickeame](https://amlibre.herokuapp.com/)
+- :rocket: Heroku: https://amlibre.herokuapp.com/
 
 ## Para correr en local
 
