@@ -2,9 +2,13 @@
 
 ![amazona](/template/images/amazonLibre.png)
 
+## Demo online del proyecto:
+
+Heroku: [clickeame](https://amlibre.herokuapp.com/)
+
 ## Para correr en local
 
-### 1. Clonar repo
+### 1. Clonar repo o descargar el .zip
 
 ```
 $ git clone git@github.com:M-ivan/Ecommerce.git
@@ -29,7 +33,8 @@ en Amazon Libre/
 ```
 # en la terminal
 $ npm install
-$ npm start
+$ npm start (sin nodemon)
+$ npm run dev (nodemon)
 ```
 
 ### 4. Frontend
@@ -37,10 +42,16 @@ $ npm start
 en Amazon Libre/frontend/
 
 ```
-# en la terminal
+# en la terminal (en root folder)
 $ cd frontend
 $ npm install
 $ npm start
+```
+
+```
+# O también (en root folder)
+$ npm run client-install
+$ npm run client
 ```
 
 ### 5. Seed de usuarios y productos
@@ -54,4 +65,10 @@ $ npm start
 
 - En http://localhost:3000/signin
 - Ingresa email: admin@example.com
+- pass: 1234
+
+### 6.1 User login
+
+- En http://localhost:3000/signin
+- Ingresa email: user@example.com
 - pass: 1234
