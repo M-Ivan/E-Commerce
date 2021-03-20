@@ -20,7 +20,7 @@ $ cd amazona
 - Local MongoDB
   -Instalalo de [aquí](https://www.mongodb.com/try/download/community)
   - Crea un .env en la carpeta raiz
-  - Pega esto: MONGODB_URL=mongodb://localhost/amazona
+  - Pega esto: MONGODB_URL=mongodb://localhost/amLibre
 - Atlas Cloud MongoDB
   - Crea una DB en [https://cloud.mongodb.com](https://cloud.mongodb.com)
   - Crea un .env en la carpeta raiz
@@ -61,7 +61,7 @@ $ npm run client
 - Productos: http://localhost:5000/api/products/seed
 - Crea 6 productos
 
-### 6. Admin Login
+### 6. Admin Login (solo local)
 
 - En http://localhost:3000/signin
 - Ingresa email: admin@example.com
